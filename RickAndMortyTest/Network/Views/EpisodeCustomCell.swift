@@ -12,31 +12,61 @@ class EpisodeCustomCell: UICollectionViewCell {
         return label
     }()
     
+    let episodeLabel: UILabel = {
+           let label = UILabel()
+           label.numberOfLines = 0
+           return label
+       }()
+
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        
         return imageView
     }()
+    
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel, episodeLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(titleLabel)
-        addSubview(imageView)
+        addSubview(stackView)
         
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+                stackView.topAnchor.constraint(equalTo: topAnchor),
+                stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            ])
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private let networkManager = NetworkManager.shared
+    
+    // MARK: - Public methods
+    func configure(with character: Character?) {
+        guard let character = character else { return }
+        titleLabel.text = character.name
+        episodeLabel.text = character.gender
+        networkManager.fetchImage(from: character.image) { [weak self] result in
+            switch result {
+            case .success(let imageData):
+                    self?.imageView.image = UIImage(data: imageData)
+                print(imageData)
+            case .failure(let error):
+                print(error)
+                
+            }
+        }
     }
 }
