@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class LoadingViewController: UIViewController {
 
@@ -24,6 +25,8 @@ class LoadingViewController: UIViewController {
         imageView.image = UIImage(named: "logoUp")
         return imageView
     }()
+    
+    private var soundController: SoundController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +44,8 @@ class LoadingViewController: UIViewController {
         logoUpImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8).isActive = true
         logoUpImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8).isActive = true
         logoUpImageView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        
+        soundController = SoundController(fileName: "BackgroundMusic", fileType: "mp3")
     }
 
     override func viewWillAppear(_ animated: Bool) {
