@@ -12,12 +12,11 @@ class SoundController {
     var audioPlayer: AVAudioPlayer?
     
     init(fileName: String, fileType: String) {
-        if let filePath = Bundle.main.path(forResource: fileName, ofType: fileType, inDirectory: "Resource") {
-            let fileURL = URL(fileURLWithPath: filePath)
+        if let url = Bundle.main.url(forResource: fileName, withExtension: fileType) {
             do {
-                audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
                 audioPlayer?.numberOfLoops = 0
-                audioPlayer?.volume = 0.8
+                audioPlayer?.volume = 0.05
             } catch {
                 print("Ошибка: не удалось создать AVAudioPlayer - \(error)")
             }

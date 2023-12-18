@@ -17,6 +17,7 @@ class EpisodesViewController: UIViewController {
     private var rickAndMorty: RickAndMorty?
     private var rickAndMortyCharacter:  RickAndMorty?
     private var episodes: String?
+    
 
    
     var character: Character!

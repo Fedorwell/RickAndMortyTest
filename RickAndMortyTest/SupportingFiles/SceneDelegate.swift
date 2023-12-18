@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var soundController: SoundController?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -20,6 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = loadingVC
         window?.makeKeyAndVisible()
+        
+        soundController = SoundController(fileName: "backgroundMusic", fileType: "mp3")
+        soundController?.play()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.window?.rootViewController = vc
