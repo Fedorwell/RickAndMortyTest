@@ -11,18 +11,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let vc = MainTabBarController()
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
-        window?.backgroundColor = .white
+        let loadingVC = LoadingViewController()
         
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        window?.windowScene = windowScene
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = loadingVC
+        window?.makeKeyAndVisible()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            self.window?.rootViewController = vc
+        }
     }
+}
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
@@ -53,5 +56,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
 
-}
+
 

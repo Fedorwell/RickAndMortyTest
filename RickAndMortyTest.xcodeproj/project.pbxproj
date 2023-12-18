@@ -19,6 +19,7 @@
 		04D81EF72B2521A400187F54 /* EpisodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D81EF62B2521A400187F54 /* EpisodesViewController.swift */; };
 		04D81EF92B25F13C00187F54 /* EpisodeCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D81EF82B25F13C00187F54 /* EpisodeCustomCell.swift */; };
 		04D81EFC2B25FF5300187F54 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D81EFB2B25FF5300187F54 /* NetworkManager.swift */; };
+		F4A000CF2B30B5F700CC5312 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A000CE2B30B5F700CC5312 /* LoadingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		04D81EF62B2521A400187F54 /* EpisodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesViewController.swift; sourceTree = "<group>"; };
 		04D81EF82B25F13C00187F54 /* EpisodeCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeCustomCell.swift; sourceTree = "<group>"; };
 		04D81EFB2B25FF5300187F54 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		F4A000CE2B30B5F700CC5312 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 		04D81EE82B24A86100187F54 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F4A000CE2B30B5F700CC5312 /* LoadingViewController.swift */,
 				04D81ED72B24974500187F54 /* MainViewController.swift */,
 				04D81EEE2B24AA5100187F54 /* CharacterDetailsViewController.swift */,
 				04D81EF02B24AA8A00187F54 /* FavouritesViewController.swift */,
@@ -236,6 +239,7 @@
 				04D81EEF2B24AA5100187F54 /* CharacterDetailsViewController.swift in Sources */,
 				04D81EF52B251EE200187F54 /* MainTabBarController.swift in Sources */,
 				04D81ED42B24974500187F54 /* AppDelegate.swift in Sources */,
+				F4A000CF2B30B5F700CC5312 /* LoadingViewController.swift in Sources */,
 				04D81EF12B24AA8A00187F54 /* FavouritesViewController.swift in Sources */,
 				04D81ED62B24974500187F54 /* SceneDelegate.swift in Sources */,
 			);
