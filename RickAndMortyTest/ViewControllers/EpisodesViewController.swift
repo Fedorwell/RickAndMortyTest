@@ -32,14 +32,38 @@ class EpisodesViewController: UIViewController {
         //fetchData(from: RickAndMortyAPI.episodeURL.url)
         setupNavigationBar()
         
+        if let navigationController = navigationController {
+            print("EpisodesViewController is wrapped inside a UINavigationController")
+        } else {
+            print("EpisodesViewController is NOT wrapped inside a UINavigationController")
+        }
+
     }
     
     // MARK: - Private Methods
+ 
+
+    @objc func cellTapped(_ sender: UITapGestureRecognizer) {
+        print("cell tapped")
+        guard let cell = sender.view as? EpisodeCustomCell,
+              let indexPath = collectionView.indexPath(for: cell),
+              let characterDetailsVC = storyboard?.instantiateViewController(withIdentifier: "CharacterDetailsViewController") as? CharacterDetailsViewController,
+              let episode = rickAndMortyCharacter?.results[indexPath.item] else {
+                  return
+        }
+        
+        // Настройка characterDetailsVC с использованием данных из выбранной ячейки
+        //characterDetailsVC.character = episode.description
+        
+       //  Выполнение перехода на экран CharacterDetailsViewController
+        navigationController?.pushViewController(characterDetailsVC, animated: true)
+    }
+
     private func setupNavigationBar() {
         title = "Rick & Morty"
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.backgroundColor = .black
+        navBarAppearance.backgroundColor = .white
         navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
 
@@ -51,7 +75,7 @@ class EpisodesViewController: UIViewController {
         netvorkManager.fetch(RickAndMorty.self, from: url) { result in
             switch result {
             case .success(let character):
-                self.rickAndMortyCharacter = character
+                self.rickAndMortyCharacter = character // сюда приходят данные с апи
                 print(character)
                 self.collectionView.reloadData()
             case .failure(let error):
@@ -88,11 +112,14 @@ private extension EpisodesViewController {
     }
 
     func setupCollectionView() {
+        
         collectionView.dataSource = self
         collectionView.delegate = self
 
        
         collectionView.register(EpisodeCustomCell.self, forCellWithReuseIdentifier: "CustomCell")
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped(_:)))
+//           collectionView.addGestureRecognizer(tapGesture)
 
     }
 }
@@ -125,14 +152,26 @@ extension EpisodesViewController: UICollectionViewDataSource {
         if let episode = rickAndMortyCharacter?.results[indexPath.item] {
             cell.configure(with: episode)
         }
-    
+
         return cell
     }
 }
 
+
 // MARK: - UICollectionViewDelegate
 
-extension EpisodesViewController: UICollectionViewDelegate { }
+extension EpisodesViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let characterDetailsVC = CharacterDetailsViewController()
+              let episode = rickAndMortyCharacter?.results[indexPath.item]
+        
+              // Передача данных в characterDetailsVC
+              self.navigationController?.pushViewController(characterDetailsVC, animated: true)
+
+    }
+}
+
+
 
 // MARK: - UICollectionViewDelegateFlowLayout
 

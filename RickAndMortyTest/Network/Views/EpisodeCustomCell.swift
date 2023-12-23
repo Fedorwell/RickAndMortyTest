@@ -45,12 +45,23 @@ class EpisodeCustomCell: UICollectionViewCell {
                 stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
                 stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+              imageView.addGestureRecognizer(tapGesture)
+              imageView.isUserInteractionEnabled = true
+
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc private func imageTapped(_ gesture: UITapGestureRecognizer) {
+        //didTapOnImage?()
+    }
+
+
     private let networkManager = NetworkManager.shared
     
     // MARK: - Public methods
